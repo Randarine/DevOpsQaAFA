@@ -18,6 +18,7 @@ public class PessoaService {
 	
     public Pessoa cadastrarPessoa(PessoaDTO pessoaDTO) {
         Pessoa pessoa = new Pessoa();
+        pessoa.setId(pessoaDTO.getId());
         pessoa.setNome(pessoaDTO.getNome());
         pessoa.setPartido(pessoaDTO.getPartido());
         return pessoaRepository.save(pessoa);
@@ -27,6 +28,7 @@ public class PessoaService {
         return pessoaRepository.findAll().stream()
                 .map(pessoa -> {
                     PessoaDTO dto = new PessoaDTO();
+                    dto.setId(pessoa.getId());
                     dto.setNome(pessoa.getNome());
                     dto.setPartido(pessoa.getPartido());
                     return dto;

@@ -38,7 +38,7 @@ public class PessoaController {
     public ResponseEntity<List<PessoaDTO>> listarPessoas() {
         List<PessoaDTO> pessoas = pessoaService.listarPessoas()
                 .stream()
-                .map(p -> new PessoaDTO(p.getId(), p.getNome(), p.getPartido(), p.getQtdVotos()))
+                .map(p -> new PessoaDTO(p.getId(), p.getNome(), p.getPartido()))
                 .collect(Collectors.toList());
         return ResponseEntity.ok(pessoas);
     }
@@ -46,7 +46,7 @@ public class PessoaController {
     @PostMapping("/{id}/votar")
     public ResponseEntity<PessoaDTO> votar(@PathVariable Long id) {
         Pessoa pessoa = pessoaService.votar(id);
-        return ResponseEntity.ok(new PessoaDTO(pessoa.getId(), pessoa.getNome(), pessoa.getPartido(), null));
+        return ResponseEntity.ok(new PessoaDTO(pessoa.getId(), pessoa.getNome(), pessoa.getPartido()));
     }
 
     @GetMapping("/{id}/votos")

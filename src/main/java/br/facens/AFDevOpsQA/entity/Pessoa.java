@@ -24,6 +24,20 @@ public class Pessoa {
         this.partido = partido;
     }
     
+    public Pessoa(Long Id, String nome, String partido, Integer qtdVotos) {
+        this.id = Id;
+    	this.nome = nome;
+        this.partido = partido;
+        this.qtdVotos = qtdVotos;
+    }
+    
+    
+    public Pessoa(Long Id, String nome, String partido) {
+        this.id = Id;
+    	this.nome = nome;
+        this.partido = partido;
+    }
+    
     public Long getId() {
 		return id;
 	}
