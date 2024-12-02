@@ -4,8 +4,8 @@ services:
   database:
     image: postgres
     environment:
-      POSTGRES_PASSWORD: postgres
-      POSTGRES_DB: papi
+      POSTGRES_PASSWORD: Leo@#$Barb123
+      POSTGRES_DB: randaro
     volumes:
       - db-volume:/var/lib/postgresql/data
 
