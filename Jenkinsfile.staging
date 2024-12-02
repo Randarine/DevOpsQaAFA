@@ -2,11 +2,22 @@ pipeline {
   agent any
 
   stages {
-    stage('Checkout') {
+     stage('Checkout') {
       steps {
         checkout scm
+        git credentialsId: 'git-credentials-id', url: 'https://github.com/DiegoJuanIsaquiel/DevOpsQaAFA.git'
       }
     }
+
+    stage('Login') {
+      steps {
+        script {
+            docker.withRegistry('https://registry.hub.docker.com', 'dockerhub-credentials-id') {
+                  def image = docker.build('randaro/devopsqaaf:latest')
+                }
+            }
+          }
+        }
 
     stage('Start container') {
       steps {
