@@ -12,7 +12,6 @@ pipeline {
       steps {
         withCredentials([usernamePassword(credentialsId: 'dockerHub', passwordVariable: 'dockerHubPassword', usernameVariable: 'dockerHubUser')]) {
         sh "docker login -u ${env.dockerHubUser} -p ${env.dockerHubPassword}"
-        sh 'docker push shanem/spring-petclinic:latest'
         echo 'Starting container from Docker Hub...'
         bat 'docker-compose -f docker-compose.staging.yml pull' // Baixa a imagem do Docker Hub
         bat 'docker-compose -f docker-compose.staging.yml up -d --no-color'
