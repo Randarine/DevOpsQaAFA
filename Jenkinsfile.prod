@@ -4,22 +4,14 @@ pipeline {
     stage('Checkout') {
       steps {
         checkout scm
-        git credentialsId: 'git-credentials-id', url: 'https://github.com/DiegoJuanIsaquiel/DevOpsQaAFA.git'
       }
     }
 
-    stage('Login') {
-      steps {
-        script {
-            docker.withRegistry('https://registry.hub.docker.com', 'dockerhub-credentials-id') {
-                  def image = docker.build('randaro/devopsqaaf:latest')
-                }
-            }
-          }
-        }
-
     stage('Start container') {
       steps {
+        withCredentials([usernamePassword(credentialsId: 'dockerHub', passwordVariable: 'dockerHubPassword', usernameVariable: 'dockerHubUser')]) {
+        sh "docker login -u ${env.dockerHubUser} -p ${env.dockerHubPassword}"
+        sh 'docker push shanem/spring-petclinic:latest'
         echo 'Starting container from Docker Hub...'
         bat 'docker-compose -f docker-compose.prod.yml pull' // Baixa a imagem do Docker Hub
         bat 'docker-compose -f docker-compose.prod.yml up -d --no-color'
