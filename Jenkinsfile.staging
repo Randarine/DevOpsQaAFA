@@ -10,8 +10,8 @@ pipeline {
 
     stage('Start container') {
       steps {
-        withCredentials([usernamePassword(credentialsId: 'dockerHub', passwordVariable: 'dockerHubPassword', usernameVariable: 'dockerHubUser')]) {
-        sh "docker login -u ${env.dockerHubUser} -p ${env.dockerHubPassword}"
+        docker.withRegistry('https://registry.hub.docker.com', 'dockerhub-credentials-id') {
+        sh "docker login -u ${env.randaro} -p ${env.Leo@#$Barb123}"
         echo 'Starting container from Docker Hub...'
         bat 'docker-compose -f docker-compose.staging.yml pull' // Baixa a imagem do Docker Hub
         bat 'docker-compose -f docker-compose.staging.yml up -d --no-color'
